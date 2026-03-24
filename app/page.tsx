@@ -23,6 +23,7 @@ export default function Home() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [showData, setShowData] = useState(false);
+  const [data, setData] = useState<any>(null);
 
   const handleChange = (key: keyof FormState) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [key]: event.target.value }));
@@ -125,8 +126,8 @@ export default function Home() {
                 const res = await fetch("/api/contact", {
                   method: "GET",
                 });
-                const data = await res.json();
-                console.log("Data from route:", data);
+                const result = await res.json();
+                setData(result);
               } catch (err) {
                 console.error("Error fetching data:", err);
               }
@@ -135,6 +136,33 @@ export default function Home() {
           >
             Show Data
           </button>
+
+          {data && (
+            <div className="mt-6 rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
+              <h2 className="text-lg font-semibold mb-4">Data from API</h2>
+              {data.workshops && data.workshops.length > 0 ? (
+                <div className="space-y-4">
+                  {data.workshops.map((workshop: any, index: number) => (
+                    <div key={index} className="bg-white dark:bg-zinc-950 p-4 rounded border border-zinc-200 dark:border-zinc-800">
+                      <p className="text-sm text-zinc-700 dark:text-zinc-300">
+                        <span className="font-semibold">Name:</span> {workshop.name}
+                      </p>
+                      <p className="text-sm text-zinc-700 dark:text-zinc-300 mt-2">
+                        <span className="font-semibold">Email:</span> {workshop.email}
+                      </p>
+                      <p className="text-sm text-zinc-700 dark:text-zinc-300 mt-2">
+                        <span className="font-semibold">Message:</span> {workshop.message}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-zinc-700 dark:text-zinc-300">
+                  {JSON.stringify(data, null, 2)}
+                </p>
+              )}
+            </div>
+          )}
           
           {/* Placeholders */}
           {/* {showData && (

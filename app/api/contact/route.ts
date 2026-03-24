@@ -6,6 +6,19 @@ type ContactRequest = {
   message: string;
 };
 
+export async function GET() {
+  const data = {
+    workshops: [
+      { name: "Database Workshop", email: "robert@example.com", message: "I'm interested in learning more about database design." },
+      { name: "API Integration", email: "yazan@example.com", message: "Can you provide more details about API integration?" },
+      { name: "Next.js Fundamentals", email: "jason@example.com", message: "I'd like to attend the Next.js fundamentals workshop." },
+    ],
+  };
+  // eslint-disable-next-line no-console
+  console.log("GET /api/contact - Returning data:", data);
+  return NextResponse.json(data);
+}
+
 export async function POST(request: Request) {
   const body = (await request.json()) as Partial<ContactRequest>;
 
