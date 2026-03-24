@@ -8,6 +8,12 @@ type FormState = {
   message: string;
 };
 
+const sampleData = [
+  { id: 1, title: "Database Workshop", participants: 45 },
+  { id: 2, title: "API Integration", participants: 32 },
+  { id: 3, title: "Next.js Fundamentals", participants: 58 },
+];
+
 export default function Home() {
   const [form, setForm] = useState<FormState>({
     name: "",
@@ -16,6 +22,7 @@ export default function Home() {
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const [showData, setShowData] = useState(false);
 
   const handleChange = (key: keyof FormState) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [key]: event.target.value }));
@@ -110,6 +117,30 @@ export default function Home() {
             ) : null}
           </div>
         </form>
+
+        <div className="mt-10 border-t border-zinc-200 pt-10 dark:border-zinc-800">
+          <button
+            onClick={() => setShowData(!showData)}
+            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+          >
+            {showData ? "Hide Data" : "Show Data"}
+          </button>
+          
+          {/* Placeholders */}
+          {/* {showData && (
+            <div className="mt-6 space-y-3">
+              <h2 className="text-lg font-semibold">Sample Data</h2>
+              <div className="space-y-2">
+                {sampleData.map((item) => (
+                  <div key={item.id} className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                    <h3 className="font-medium">{item.title}</h3>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">Participants: {item.participants}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )} */}
+        </div>
       </main>
     </div>
   );
