@@ -8,11 +8,11 @@ type FormState = {
   message: string;
 };
 
-const sampleData = [
-  { id: 1, title: "Database Workshop", participants: 45 },
-  { id: 2, title: "API Integration", participants: 32 },
-  { id: 3, title: "Next.js Fundamentals", participants: 58 },
-];
+// const sampleData = [
+//   { id: 1, title: "Database Workshop", participants: 45 },
+//   { id: 2, title: "API Integration", participants: 32 },
+//   { id: 3, title: "Next.js Fundamentals", participants: 58 },
+// ];
 
 export default function Home() {
   const [form, setForm] = useState<FormState>({
