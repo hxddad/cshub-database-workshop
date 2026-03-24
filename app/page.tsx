@@ -120,10 +120,20 @@ export default function Home() {
 
         <div className="mt-10 border-t border-zinc-200 pt-10 dark:border-zinc-800">
           <button
-            onClick={() => setShowData(!showData)}
+            onClick={async () => {
+              try {
+                const res = await fetch("/api/contact", {
+                  method: "GET",
+                });
+                const data = await res.json();
+                console.log("Data from route:", data);
+              } catch (err) {
+                console.error("Error fetching data:", err);
+              }
+            }}
             className="inline-flex items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
           >
-            {showData ? "Hide Data" : "Show Data"}
+            Show Data
           </button>
           
           {/* Placeholders */}
